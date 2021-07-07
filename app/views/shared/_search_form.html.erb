@@ -1,0 +1,19 @@
+<%= form_tag url, method: :get do %>
+  <div class="row just-content-center">
+    <div class="col-3">
+      <label for="">狀態</label>
+      <%= select_tag 'task[state]', options_for_select(Task::STATE.map{|state| [translate_states(state), state]}), { include_blank: true, class: 'form-select' } %>
+    </div>
+    <div class="col-3">
+    <label for="">優先權</label>
+      <%= select_tag 'task[order]', options_for_select(Task::ORDER.map{|order| [translate_order(order), order]}), { include_blank: true, class: 'form-select' } %>
+    </div>
+    <div class="col-5">
+      <label for="">標題</label>
+      <%= text_field_tag 'task[title]', {}, class: 'form-control'  %>
+    </div>
+    <div class="col-1 pt-4">
+    <%= button_tag '搜尋' , class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

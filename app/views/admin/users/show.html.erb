@@ -1,0 +1,2 @@
+<h2 class="text-center mt-3"><%= @user.email%>任務頁面</h2>
+<%= render 'tasks/tasks', tasks: @tasks, url: admin_user_path(@user) %>
