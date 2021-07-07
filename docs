@@ -1,28 +1,28 @@
 步驟1: 建立 Rails 的開發環境
 1-1: 安裝 Ruby
-  利用 rbenv 或 RVM 安裝最新版本的 Ruby
-  以 ruby -v 指令來確認 Ruby 的版本
+  利用 rbenv 或 RVM 安裝最新版本的 Ruby ok
+  以 ruby -v 指令來確認 Ruby 的版本 ok
 1-2: 安裝 Rails
-  以 gem 指令安裝 Rails
-  安裝最新版本的 Rails
-  以 rails -v 指令來確認 Rails 的版本
+  以 gem 指令安裝 Rails ok
+  安裝最新版本的 Rails ok
+  以 rails -v 指令來確認 Rails 的版本 ok
 1-3: 安裝資料庫（PostgreSQL）
-  在你使用的 OS 下安裝 PostgreSQL
-  macOS 的話，請以 brew 等工具安裝
+  在你使用的 OS 下安裝 PostgreSQL ok
+  macOS 的話，請以 brew 等工具安裝 ok
 步驟2: 在 GitHub 建立 repository
-  在你的環境中安裝 Git
-  macOS 的話，請以 brew 等工具安裝
-  以 git config 設定 user name 和 email
-  請考慮專案名稱（也等於 repo 名稱）
-  建立 repo
-  如果沒有帳號的話，先申請帳號
-  接著建立空白的 repo
+  在你的環境中安裝 Git ok 
+  macOS 的話，請以 brew 等工具安裝 ok
+  以 git config 設定 user name 和 email ok
+  請考慮專案名稱（也等於 repo 名稱）ok
+  建立 repo ok
+  如果沒有帳號的話，先申請帳號 ok
+  接著建立空白的 repo ok
 步驟3: 建立 Rails 專案
-  以 rails new 指令，建立 Rails 應用程式最低限度的樣板和檔案
-  在 rails new 產生的專案目錄下，建立 docs 資料夾，並將本教程文件 commit 進去
+  以 rails new 指令，建立 Rails 應用程式最低限度的樣板和檔案 ok
+  在 rails new 產生的專案目錄下，建立 docs 資料夾，並將本教程文件 commit 進去 ok
   目的是為了方便之後開發時可以參考
-  將成品 push 到 GitHub 的 repo
-  將使用的 Ruby 版號寫進 Gemfile（也請確認 Rails 版號是否有標明）
+  將成品 push 到 GitHub 的 repo ok
+  將使用的 Ruby 版號寫進 Gemfile（也請確認 Rails 版號是否有標明）ok
 步驟4: 想像網站成品會是什麼樣子
   開始進行設計之前，先和導師一起討論對最終成品的預想。建議在紙上畫 prototype
   請參照網站需求，開始想需要怎樣的資料結構

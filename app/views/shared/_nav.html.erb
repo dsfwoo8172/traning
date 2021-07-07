@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
+  <div class="container">
+    <a class="navbar-brand fs-4 fw-bold d-flex align-items-center" href="/">任務管理系統</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav w-100 align-items-center">
+        <li class="nav-item custom-size">
+          <% if Current.user.try(:admin?) %>
+            <a class="nav-link" aria-current="page" href="<%= admin_users_path %>">使用者管理</a>
+          <% end %>
+        </li>
+        <%# <li class="nav-item custom-size">
+          <a class="custom-link" href="#">未開發</a>
+        </li>
+        <li class="nav-item custom-size">
+          <a class="custom-link" href="#">未開發</a>
+        </li> %>
+        <% if Current.user %>
+          <li class="nav-item ms-auto me-3">
+          <%= link_to user_edit_password_path do %>
+            <span class="nav-link">歡迎 <%= Current.user.email.capitalize %></span>
+          <% end %>
+          </li>
+          <li>
+            <%= button_to '登出', user_logout_path, method: :delete, class: 'btn btn-danger' %>
+          </li>
+        <% else %>
+          <li class="ms-auto d-flex align-items-center">
+            <%= link_to '登入', user_sign_in_path, class: 'nav-link' %>
+            <span class="divide-line"></span>
+            <%= link_to '註冊', user_sign_up_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>

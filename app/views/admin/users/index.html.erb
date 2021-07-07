@@ -1,0 +1,33 @@
+
+
+<div class="col-10 mx-auto mt-5">
+<%= link_to '新增使用者', new_admin_user_path, class: 'btn btn-success' %>
+  <table class="table mt-3 text-center">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">使用者信箱</th>
+        <th scope="col">角色</th>
+        <th scope="col">任務數量</th>
+        <th scope="col">任務清單</th>
+        <th scope="col">其他功能</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each_with_index do |user, index| %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= user.email %></td>
+          <td><%= translate_role(user.role) %></td>
+          <td><%= user.tasks.size %></td>
+          <td><%= link_to '任務清單', admin_user_path(user), class: 'btn btn-warning p-0 px-3' %></td>
+          <td>
+            <%= link_to '編輯', edit_admin_user_path(user), class: 'btn btn-primary p-0 px-3' %>
+            <%= link_to '刪除', admin_user_path(user), method: :delete, data: {confirm: '你確定要刪除這個使用者？'}, class: 'btn btn-danger p-0 px-3' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+   <%= paginate @users %>
+</div>
