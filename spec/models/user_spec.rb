@@ -4,22 +4,21 @@ RSpec.describe User, type: :model do
   describe "Associations" do
     it { should have_many(:tasks) }
   end
-  subject { 
-    described_class.new(
-                        password: "111111", 
-                        password_confirmation: "111111",
-                        email: "sid@gmail.com"
-                      )  
-  }
+  let(:user){ build(:user) }
+  let(:admin){ create(:user) }
+
   describe "Validations" do
-
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:password) }
+    it { should validate_presence_of(:password_confirmation) }
     it "is valid with valid attributes" do
-      expect(subject).to be_valid
+      expect(user).to be_valid
     end
-
-    it "is not valid without an email" do
-      subject.email = nil
-      expect(subject).to_not be_valid
+  end
+  
+  describe "test admin method" do
+    it "result must be true" do
+      expect(admin.admin?).to eq(true)
     end
   end
 end

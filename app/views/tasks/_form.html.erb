@@ -4,8 +4,8 @@
   <%= render 'shared/error_messages', f: f %>
   
   <%= f.text_field :title, class: 'form-control mb-3', placeholder: '任務標題' %>
-  <%= f.select :order, Task::ORDER.map{|order| [translate_order(order), order]}, {}, class: 'form-select mb-3'%>
-  <%= f.select :state, Task::STATE.map{|state| [translate_states(state), state]}, {}, class: 'form-select mb-3' %>
+  <%= f.select :priority, order_select_options, {}, class: 'form-select mb-3'%>
+  <%= f.select :state, state_select_options, {}, class: 'form-select mb-3' %>
   <%= f.datetime_select :start_time, class: 'form-control' %>
   <%= f.datetime_select :end_time %>
   <%= f.button %>

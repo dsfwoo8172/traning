@@ -30,4 +30,12 @@ module ApplicationHelper
       "一般使用者"
     end
   end
+
+  def order_select_options
+    Task.priorities.keys.map{|order| [translate_order(order), order]}
+  end
+
+  def state_select_options
+    Task.states.keys.map{|state| [translate_states(state), state]}
+  end
 end

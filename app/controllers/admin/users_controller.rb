@@ -25,6 +25,10 @@ class Admin::UsersController < Admin::AdminController
              else
                Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
              end
+
+    if params[:sort].present?
+      @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
+    end
   end
 
   def edit; end
@@ -63,6 +67,6 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def clear_search_params
-    params.require(:task).permit(:state, :order, :title).reject{|key, val| val.blank?}
+    params.require(:task).permit(:state, :priority, :title).reject{|key, val| val.blank?}
   end
 end
