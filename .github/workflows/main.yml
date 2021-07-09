@@ -14,9 +14,11 @@ jobs:
         image: postgres:12
         ports: [ '5432:5432' ]
         env:
-          username: postgres
-          password: ${{ secrets.PG_PASSWORD }}
-          POSTGRES_PASSWORD: postgres
+          PG_DATABASE: backend_system_test
+          PG_USER: postgres
+          PG_PASSWORD: seaways0204
+          RAILS_ENV: test
+          PG_HOST: localhost
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -47,7 +49,7 @@ jobs:
         env:
           PG_DATABASE: backend_system_test
           PG_USER: postgres
-          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          PG_PASSWORD: seaways0204
           RAILS_ENV: test
           PG_HOST: localhost
         run: |
