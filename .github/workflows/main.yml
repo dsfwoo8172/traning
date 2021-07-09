@@ -47,7 +47,7 @@ jobs:
         env:
           PG_DATABASE: backend_system_test
           PG_USER: postgres
-          PG_PASSWORD: password
+          PG_PASSWORD: postgres
           RAILS_ENV: test
           PG_HOST: localhost
         run: |
