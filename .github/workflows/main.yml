@@ -30,7 +30,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.3
-      - uses: borales/actions-yarn@v2.3.0
+      - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
 
@@ -45,10 +45,10 @@ jobs:
 
       - name: prepare database
         env:
-          POSTGRES_PASSWORD: postgres
+          username: postgres
+          password: ${{ secrets.PG_PASSWORD }}
           PG_DATABASE: postgres
           PG_HOST: localhost
-          PG_USER: postgres
           RAILS_ENV: test
           ITH_COVERAGE: true
           DISABLE_SPRING: 1
