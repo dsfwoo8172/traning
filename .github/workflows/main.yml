@@ -50,6 +50,7 @@ jobs:
           PG_USER: postgres
           PG_PASSWORD: seaways0204
           RAILS_ENV: test
+          PG_HOST: localhost
         run: |
           bundle exec rails db:prepare
           
