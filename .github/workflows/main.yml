@@ -14,11 +14,8 @@ jobs:
         image: postgres:12
         ports: [ '5432:5432' ]
         env:
-          PG_DATABASE: backend_system_test
-          PG_USER: postgres
-          PG_PASSWORD: seaways0204
-          RAILS_ENV: test
-          PG_HOST: localhost
+          username: postgres
+          passowrd: seaways0204
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
