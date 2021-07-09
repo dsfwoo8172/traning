@@ -15,7 +15,6 @@ jobs:
         ports: [ '5432:5432' ]
         env:
           username: postgres
-          # password: ${{ secrets.PG_PASSWORD }}
           POSTGRES_PASSWORD: seaways0204
         options: >-
           --health-cmd pg_isready
