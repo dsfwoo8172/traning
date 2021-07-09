@@ -1,16 +1,23 @@
 
 <div class="col-10 mx-auto mt-5">
 <%= link_to '新增任務', new_task_path, class: 'btn btn-success mb-5 float-end mt-4' %>
-  <%= render 'shared/search_form', url: url %>
+  <%#= render 'shared/search_form', url: url %>
   <table class="table mt-3 text-center">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">任務標題</th>
-        <th scope="col">任務狀態</th>
-        <th scope="col">任務優先權</th>
-        <th scope="col">開始時間</th>
-        <th scope="col">結束時間</th>
+        <% if params[:controller] == 'tasks' %>
+        <th scope="col"><%= link_to '任務狀態', params[:sort] == "state desc" ? tasks_path(sort: "state asc") : tasks_path(sort: "state desc") %></th> 
+        <th scope="col"><%= link_to '任務優先權', params[:sort] == "priority desc" ? tasks_path(sort: "priority asc") : tasks_path(sort: "priority desc") %></th>
+        <th scope="col"><%= link_to '開始時間', params[:sort] == "start_time desc" ? tasks_path(sort: "start_time asc") : tasks_path(sort: "start_time desc") %></th>
+        <th scope="col"><%= link_to '結束時間', params[:sort] == "end_time desc" ? tasks_path(sort: "end_time asc") : tasks_path(sort: "end_time desc") %></th>
+        <% else %>
+        <th scope="col"><%= link_to '任務狀態', params[:sort] == "state desc" ? admin_user_path(sort: "state asc") : admin_user_path(sort: "state desc") %></th> 
+        <th scope="col"><%= link_to '任務優先權', params[:sort] == "priority desc" ? admin_user_path(sort: "priority asc") : admin_user_path(sort: "priority desc") %></th>
+        <th scope="col"><%= link_to '開始時間', params[:sort] == "start_time desc" ? admin_user_path(sort: "start_time asc") : admin_user_path(sort: "start_time desc") %></th>
+        <th scope="col"><%= link_to '結束時間', params[:sort] == "end_time desc" ? admin_user_path(sort: "end_time asc") : admin_user_path(sort: "end_time desc") %></th>
+        <% end %>
         <th scope="col">其他功能</th>
       </tr>
     </thead>
@@ -20,7 +27,7 @@
           <th scope="row"><%= index + 1 %></th>
           <td><%= task.title %></td>
           <td><%= translate_states(task.state) %></td>
-          <td><%= translate_order(task.order) %></td>
+          <td><%= translate_order(task.priority) %></td>
           <td><%= task.start_time.strftime("%Y/%m/%d %I:%M %p") %></td>
           <td><%= task.end_time.strftime("%Y/%m/%d %I:%M %p") %></td>
           <td>

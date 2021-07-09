@@ -8,6 +8,10 @@ class TasksController < ApplicationController
              else
                Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
              end
+    
+    if params[:sort].present?
+      @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
+    end
   end
 
   def new
@@ -43,7 +47,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :order, :state, :start_time, :end_time, :tag)
+    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag)
   end
 
   def set_task
