@@ -46,9 +46,9 @@ jobs:
 
       - name: prepare database
         env:
-          # PG_DATABASE: backend_system_test
-          # PG_USER: postgres
-          # PG_PASSWORD: seaways0204
+          PG_DATABASE: backend_system_test
+          PG_USER: postgres
+          PG_PASSWORD: seaways0204
           RAILS_ENV: test
         run: |
           bundle exec rails db:prepare
