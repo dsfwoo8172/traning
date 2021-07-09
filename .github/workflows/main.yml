@@ -45,7 +45,7 @@ jobs:
 
       - name: prepare database
         run: |
-          bundle exec rails db:prepare
+          bundle exec rails db:create
           
       - name: Build and run tests
         env:
