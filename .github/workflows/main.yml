@@ -16,6 +16,7 @@ jobs:
         env:
           username: postgres
           password: ${{ secrets.PG_PASSWORD }}
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -49,6 +50,7 @@ jobs:
       - name: Build and run tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
+          RAILS_ENV: test
         run: |
           bundle exec rspec spec
 
