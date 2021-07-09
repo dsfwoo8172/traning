@@ -14,9 +14,13 @@ jobs:
         image: postgres:11
         ports: [ '5432:5432' ]
         env:
-          username: postgres
-          password: ${{ secrets.PG_PASSWORD }}
           POSTGRES_PASSWORD: postgres
+          PG_DATABASE: postgres
+          PG_HOST: localhost
+          PG_USER: postgres
+          RAILS_ENV: test
+          ITH_COVERAGE: true
+          DISABLE_SPRING: 1
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -45,7 +49,7 @@ jobs:
 
       - name: prepare database
         run: |
-          bundle exec rails db:create
+          bundle exec rails db:prepare
           
       - name: Build and run tests
         env:
