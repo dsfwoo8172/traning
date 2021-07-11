@@ -20,4 +20,12 @@ RSpec.describe Task, type: :model do
   describe "Associations" do
     it { should belong_to(:user) }
   end
+  
+  describe 'Default order by time' do
+    it "order by created_at" do
+      default_sql_query = Task.all.to_sql
+      order_sql_query = Task.order(created_at: :desc).to_sql
+      expect(default_sql_query).to eq(order_sql_query)
+    end
+  end
 end

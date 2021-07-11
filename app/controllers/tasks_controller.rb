@@ -4,9 +4,9 @@ class TasksController < ApplicationController
 
   def index
     @tasks = if params[:task].present?
-               Current.user.tasks.where(clear_searach_params).order(created_at: :desc).page(params[:page]).per(5)
+               Current.user.tasks.where(clear_searach_params).page(params[:page]).per(5)
              else
-               Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
+               Current.user.tasks.page(params[:page]).per(5)
              end
     
     if params[:sort].present?
