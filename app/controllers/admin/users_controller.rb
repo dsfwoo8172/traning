@@ -21,9 +21,9 @@ class Admin::UsersController < Admin::AdminController
 
   def show
     @tasks = if params[:task].present?
-               Current.user.tasks.where(clear_search_params).order(created_at: :desc).page(params[:page]).per(5)
+               Current.user.tasks.where(clear_search_params).page(params[:page]).per(5)
              else
-               Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
+               Current.user.tasks.page(params[:page]).per(5)
              end
 
     if params[:sort].present?
