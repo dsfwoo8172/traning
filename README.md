@@ -1,6 +1,6 @@
 # README
 
-任務管理系統
+任務管理系統(使用 github action for CI)
 
 兩種身份
   1. 一般使用者(只能見看自己的任務，對自己任務 CRUD)
