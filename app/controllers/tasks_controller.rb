@@ -3,12 +3,15 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = if params[:task].present?
-               Current.user.tasks.where(clear_searach_params).page(params[:page]).per(5)
+    @tasks = if params[:task] && !search_params[:keyword]
+               Current.user.tasks.where(search_params).order(created_at: :desc).page(params[:page]).per(5)
+             elsif params[:task] && search_params[:keyword]
+               Current.user.tasks.where('title like ? or priority = ? and state = ?', "%#{search_params[:keyword]}%", Task.priorities[search_params[:priority]], Task.states[search_params[:state]])
+                           .order(created_at: :desc).page(params[:page]).per(5)
              else
-               Current.user.tasks.page(params[:page]).per(5)
+               Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
              end
-    
+
     if params[:sort].present?
       @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
     end
@@ -47,14 +50,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag)
+    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag, :keyword)
   end
 
   def set_task
     @task = Task.find_by(id: params[:id])
   end
 
-  def clear_searach_params
+  def search_params
     task_params.reject{|key, val| val.blank?}
   end
 end
