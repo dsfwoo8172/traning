@@ -20,15 +20,19 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def show
-    @tasks = if params[:task].present?
-               Current.user.tasks.where(clear_search_params).page(params[:page]).per(5)
+    @tasks = if params[:task] && !search_params[:keyword]
+               @user.tasks.where(search_params).order(created_at: :desc).page(params[:page]).per(5)
+             elsif params[:task] && search_params[:keyword]
+               @user.tasks.where('title like ? or priority = ? and state = ?', "%#{search_params[:keyword]}%", Task.priorities[search_params[:priority]], Task.states[search_params[:state]])
+                    .order(created_at: :desc).page(params[:page]).per(5)
              else
-               Current.user.tasks.page(params[:page]).per(5)
+               @user.tasks.order(created_at: :desc).page(params[:page]).per(5)
              end
 
     if params[:sort].present?
       @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
     end
+
   end
 
   def edit; end
@@ -66,7 +70,7 @@ class Admin::UsersController < Admin::AdminController
     @user = User.find_by(id: params[:id])
   end
 
-  def clear_search_params
+  def search_params
     params.require(:task).permit(:state, :priority, :title).reject{|key, val| val.blank?}
   end
 end
