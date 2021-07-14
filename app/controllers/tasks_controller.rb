@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @tasks = if params[:task] && !search_params[:keyword]
                Current.user.tasks.where(search_params).order(created_at: :desc).page(params[:page]).per(5)
              elsif params[:task] && search_params[:keyword]
-               Current.user.tasks.where('title like ? or priority = ? and state = ?', "%#{search_params[:keyword]}%", Task.priorities[search_params[:priority]], Task.states[search_params[:state]])
+               Current.user.tasks.where('title like ? or priority = ? or state = ?', "%#{search_params[:keyword]}%", Task.priorities[search_params[:priority]], Task.states[search_params[:state]])
                            .order(created_at: :desc).page(params[:page]).per(5)
              else
                Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
@@ -53,11 +53,11 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag, :keyword)
   end
 
-  def set_task
-    @task = Task.find_by(id: params[:id])
-  end
-
   def search_params
     task_params.reject{|key, val| val.blank?}
+  end
+
+  def set_task
+    @task = Task.find_by(id: params[:id])
   end
 end
