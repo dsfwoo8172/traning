@@ -3,14 +3,10 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = if params[:task] && !search_params[:keyword]
-               Current.user.tasks.where(search_params).order(created_at: :desc).page(params[:page]).per(5)
-             elsif params[:task] && search_params[:keyword]
-               Current.user.tasks.where('title like ? or priority = ? or state = ?', "%#{search_params[:keyword]}%", Task.priorities[search_params[:priority]], Task.states[search_params[:state]])
-                           .order(created_at: :desc).page(params[:page]).per(5)
-             else
-               Current.user.tasks.order(created_at: :desc).page(params[:page]).per(5)
-             end
+    @tasks = Current.user.tasks
+    @tasks = @tasks.without_keyword(search_params) if params[:task] && !search_params[:keyword]
+    @tasks = @tasks.with_keyword(search_params) if params[:task] && search_params[:keyword]
+    @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(5)
 
     if params[:sort].present?
       @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
