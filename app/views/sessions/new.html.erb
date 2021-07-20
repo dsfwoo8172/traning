@@ -1,6 +1,6 @@
-<h1>登入</h1>
-<%= form_with url: user_sign_in_path do |f| %>
 
+<%= form_with url: user_sign_in_path, html: {class: 'col-6 mx-auto mt-5'} do |f| %>
+<h1 class="text-center mb-5">登入</h1>
 <div class="mb-3">
   <%= f.label :email, '信箱' %>
   <%= f.text_field :email, class: 'form-control', placeholder: 'Steven@gmail.com' %>
