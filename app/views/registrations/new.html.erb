@@ -1,5 +1,6 @@
-<h1>註冊</h1>
-<%= form_with model: @user, url: user_sign_up_path do |f| %>
+
+<%= form_with model: @user, url: user_sign_up_path, html: {class: 'col-6 mx-auto mt-5'} do |f| %>
+  <h1 class="text-center mb-5">註冊</h1>
   <%= render 'shared/error_messages', f: f %>
 
   <div class="mb-3">
