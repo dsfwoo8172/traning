@@ -19,7 +19,7 @@
         </li> %>
         <% if Current.user %>
           <li class="nav-item ms-auto me-3">
-          <%= link_to user_edit_password_path do %>
+          <%= link_to user_edit_user_path do %>
             <span class="nav-link">歡迎 <%= Current.user.email.capitalize %></span>
           <% end %>
           </li>

@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
   root 'tasks#index'
   resources :tasks
-  
+  # 註冊
   get '/user/sign_up', to: 'registrations#new'
   post '/user/sign_up', to: 'registrations#create'
-
-  get '/user/edit_password', to: 'passwords#edit'
-  patch '/user/edit_password', to: 'passwords#update'
-
+  # 編輯使用者
+  get '/user/edit_user', to: 'users#edit'
+  patch '/user/edit_user', to: 'users#update'
+  # 登入
   get '/user/sign_in', to: 'sessions#new'
   post '/user/sign_in', to: 'sessions#create'
-  
-  delete '/user/logout', to: 'sessions#destroy'
+
+  delete '/user/logout', to: 'sessions#destroy' # 登出
 
   namespace :admin do
     resources :users
