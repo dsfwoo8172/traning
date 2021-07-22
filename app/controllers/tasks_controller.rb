@@ -46,7 +46,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag, :keyword)
+    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag, :keyword, :content)
   end
 
   def search_params
