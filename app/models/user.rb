@@ -21,6 +21,8 @@ class User < ApplicationRecord
   validates_presence_of :password
   validates_presence_of :password_confirmation
   has_many :tasks, dependent: :destroy
+  has_one :profile, dependent: :destroy
+  accepts_nested_attributes_for :profile
 
   ROLES = ['admin', 'general_user']
 
