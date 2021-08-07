@@ -11,5 +11,6 @@ FactoryBot.define do
     password {'111111'}
     password_confirmation {'111111'}
     role {'general_user'}
+    username {'jerry'}
   end
 end
