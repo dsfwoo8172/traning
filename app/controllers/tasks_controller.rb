@@ -6,7 +6,7 @@ class TasksController < ApplicationController
     @tasks = Current.user.tasks
     @tasks = @tasks.without_keyword(search_params) if params[:task] && !search_params[:keyword]
     @tasks = @tasks.with_keyword(search_params) if params[:task] && search_params[:keyword]
-    @tasks = @tasks.order(created_at: :desc).page(params[:page]).per(5)
+    @tasks = @tasks.order(id: :desc).page(params[:page]).per(5)
 
     if params[:sort].present?
       @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
