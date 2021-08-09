@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Task, type: :model do
+RSpec.describe Task do
   let(:user){ create(:user) }
   let(:task){ build(:task) }
 
