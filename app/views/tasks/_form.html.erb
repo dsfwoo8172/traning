@@ -9,5 +9,19 @@
   <%= f.rich_text_area :content, class: 'mb-3' %>
   <%= f.datetime_select :start_time, class: 'form-control' %>
   <%= f.datetime_select :end_time %>
+  <%= f.select :tag_list, options_from_collection_for_select(Tag.all, 'name', 'name', task.tags.map(&:name)),{ include_blank: true }, class: 'form-select', multiple: true %>
   <%= f.button %>
 <% end %>
+
+<script>
+
+  $(document).on('turbolinks:load', function () {
+    $("#task_tag_list").select2({
+      placeholder: '請選擇一個標籤',
+      allowClear: true,
+      tags: true,
+      tokenSeparators: [',', ' ']
+    })
+  });
+
+</script>

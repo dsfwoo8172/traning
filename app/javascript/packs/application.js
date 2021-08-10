@@ -14,3 +14,7 @@ ActiveStorage.start()
 
 require("trix")
 require("@rails/actiontext")
+import $ from 'jquery'
+import 'select2'
+import 'select2/dist/css/select2.css'
+window.$ = $
