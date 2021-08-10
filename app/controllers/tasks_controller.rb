@@ -4,12 +4,15 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Current.user.tasks
-    @tasks = @tasks.without_keyword(search_params) if params[:task] && !search_params[:keyword]
-    @tasks = @tasks.with_keyword(search_params) if params[:task] && search_params[:keyword]
+    @tasks = @tasks.without_keyword(search_params) if params[:task] && !search_params[:keyword] && !search_params[:tag]
+    @tasks = @tasks.with_keyword(search_params) if params[:task] && search_params[:keyword] && !search_params[:tag]
+    @tasks = @tasks.with_tag_and_without_keyword(search_params[:tag], search_params) if params[:task] && search_params[:tag] && !search_params[:keyword]
+    @tasks = @tasks.with_tag_and_with_keyword(search_params[:tag], search_params) if params[:task] && search_params[:tag] && search_params[:keyword]
+    
     @tasks = @tasks.order(id: :desc).page(params[:page]).per(5)
 
     if params[:sort].present?
-      @tasks = Current.user.tasks.order("#{params[:sort]}").page(params[:page]).per(5)
+      @tasks = @tasks.reorder("#{params[:sort]}")
     end
   end
 
@@ -46,11 +49,11 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :tag, :keyword, :content)
+    params.require(:task).permit(:title, :priority, :state, :start_time, :end_time, :keyword, :content, tag_list: [])
   end
 
   def search_params
-    task_params.reject{|key, val| val.blank?}
+    params[:task].reject{|key, val| val.blank?}
   end
 
   def set_task

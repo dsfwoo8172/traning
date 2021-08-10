@@ -1,12 +1,16 @@
 <%= form_tag url, method: :get do %>
   <div class="row just-content-center">
-    <div class="col-3">
+    <div class="col-2">
       <label for="">狀態</label>
       <%= select_tag 'task[state]', options_for_select(state_select_options), { include_blank: true, class: 'form-select' } %>
     </div>
-    <div class="col-3">
+    <div class="col-2">
     <label for="">優先權</label>
       <%= select_tag 'task[priority]', options_for_select(order_select_options), { include_blank: true, class: 'form-select' } %>
+    </div>
+    <div class="col-2">
+    <label for="">標籤</label>
+      <%= select_tag 'task[tag]', options_from_collection_for_select(Tag.all, 'name', 'name'), { include_blank: true, class: 'form-select' } %>
     </div>
     <div class="col-5">
       <label for="">標題或內容</label>
