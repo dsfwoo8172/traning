@@ -1,4 +1,4 @@
-
+<%= turbo_frame_tag 'tasks' do %>
 <div class="col-10 mx-auto mt-5">
 <%= link_to '新增任務', new_task_path, class: 'btn btn-success mb-5 float-end mt-4' %>
   <%= render 'shared/search_form', url: url %>
@@ -46,3 +46,4 @@
   </table>
    <%= paginate tasks %>
 </div>
+<% end %>

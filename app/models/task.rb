@@ -3,6 +3,8 @@ class Task < ApplicationRecord
   has_rich_text :content
   has_many :task_tags, dependent: :destroy
   has_many :tags, through: :task_tags
+
+  after_create_commit { broadcast_prepend_to 'tasks' }
   
 
   validates_presence_of :title, :start_time, :end_time, :priority, :state
