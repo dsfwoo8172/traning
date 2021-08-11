@@ -1,2 +1,4 @@
-<h2 class="text-center mt-5">新增任務</h2>
-<%= render 'form', task: @task %>
+<%= turbo_frame_tag 'tasks' do %>
+  <h2 class="text-center mt-5">新增任務</h2>
+  <%= render 'form', task: @task %>
+<% end %>
