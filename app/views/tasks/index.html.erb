@@ -1,1 +1,24 @@
-<%= render 'tasks', tasks: @tasks, url: tasks_path %>
+<%= turbo_stream_from "tasks" %>
+  <div class="col-10 mx-auto mt-5">
+    <%= link_to '新增任務', new_task_path, class: 'btn btn-success mb-5 float-end mt-4' %>
+      <%= render 'shared/search_form', url: tasks_path %>
+      <div class="rTable">
+        <div class="rTableRow">
+          <div class="rTableHead">任務標題</div>
+          <% if params[:controller] == 'tasks' %>
+          <div class="rTableHead"><%= link_to '任務狀態', params[:sort] == "state desc" ? tasks_path(sort: "state asc") : tasks_path(sort: "state desc") %></div> 
+          <div class="rTableHead"><%= link_to '任務優先權', params[:sort] == "priority desc" ? tasks_path(sort: "priority asc") : tasks_path(sort: "priority desc") %></div>
+          <div class="rTableHead"><%= link_to '開始時間', params[:sort] == "start_time desc" ? tasks_path(sort: "start_time asc") : tasks_path(sort: "start_time desc") %></div>
+          <div class="rTableHead"><%= link_to '結束時間', params[:sort] == "end_time desc" ? tasks_path(sort: "end_time asc") : tasks_path(sort: "end_time desc") %></div>
+          <% else %>
+          <div class="rTableHead"><%= link_to '任務狀態', params[:sort] == "state desc" ? admin_user_path(sort: "state asc") : admin_user_path(sort: "state desc") %></div> 
+          <div class="rTableHead"><%= link_to '任務優先權', params[:sort] == "priority desc" ? admin_user_path(sort: "priority asc") : admin_user_path(sort: "priority desc") %></div>
+          <div class="rTableHead"><%= link_to '開始時間', params[:sort] == "start_time desc" ? admin_user_path(sort: "start_time asc") : admin_user_path(sort: "start_time desc") %></div>
+          <div class="rTableHead"><%= link_to '結束時間', params[:sort] == "end_time desc" ? admin_user_path(sort: "end_time asc") : admin_user_path(sort: "end_time desc") %></div>
+          <% end %>
+          <div class="rTableHead">標籤</div>
+          <div class="rTableHead">其他功能</div>
+        </div>
+          <%= render @tasks %>
+      </div>
+  </div>
