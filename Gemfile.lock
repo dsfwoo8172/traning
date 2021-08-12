@@ -225,6 +225,8 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (0.3.0)
       rails (>= 6.0.0)
+    sweetify (2.0.0)
+      actionpack
     thor (1.1.0)
     tilt (2.0.10)
     turbo-rails (0.7.0)
@@ -278,6 +280,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   spring
+  sweetify
   tzinfo-data
   web-console (>= 4.1.0)
   webdrivers

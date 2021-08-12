@@ -110,10 +110,10 @@ RSpec.describe TasksController do
         expect { post :create, params: { task: attributes_for(:task) } }.to change(Task, :count).by(1)
       end
   
-      it "redirect to task index" do
-        post :create, params: { task: attributes_for(:task) }
-        expect(response).to redirect_to tasks_path
-      end
+      # it "redirect to task index" do
+      #   post :create, params: { task: attributes_for(:task) }
+      #   expect(response).to redirect_to tasks_path
+      # end
     end
 
     # Validations

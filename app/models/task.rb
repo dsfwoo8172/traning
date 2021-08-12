@@ -4,14 +4,14 @@ class Task < ApplicationRecord
   has_many :task_tags, dependent: :destroy
   has_many :tags, through: :task_tags
 
-  after_create_commit { broadcast_prepend_to 'tasks' }
+  after_update_commit {broadcast_replace_to "tasks"}
+  after_destroy_commit {broadcast_remove_to "tasks"}
   
-
   validates_presence_of :title, :start_time, :end_time, :priority, :state
-  scope :with_tag_and_without_keyword, -> (tag, options){ tagged_with(tag).or(without_keyword(options)) }
-  scope :with_tag_and_with_keyword, -> (tag, options){ tagged_with(search_params[:tag]).or(@tasks.with_keyword(options)) }
-  scope :without_keyword, -> (options){ where('priority = ? or state = ?', Task.priorities[options[:priority]], Task.states[options[:state]]) }
-  scope :with_keyword, -> (options){ where('title like ? or priority = ? or state = ?', "%#{options[:keyword]}%", Task.priorities[options[:priority]], Task.states[options[:state]])}
+  
+  scope :with_state, -> (state){ where(state: state) }
+  scope :with_priority, -> (priority){ where(priority: priority) }
+  scope :with_keyword, -> (keyword){ where('title ILIKE ?', "%#{keyword}%")}
   
   enum priority: { low: 0, middle: 1, high: 2 }
   enum state: { pending: 0, proccesing: 1, finished: 2 }
