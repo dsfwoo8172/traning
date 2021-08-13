@@ -1,15 +1,26 @@
 
-<%= form_with model: task, id: dom_id(task), html: {class: 'mt-5', style: 'width: 500px; margin: auto;'} do |f| %>
-  <%= render 'shared/error_messages', f: f %>
+<%= form_with model: task, id: dom_id(task), data: {controller: 'redirect'} do |f| %>
   
-  <%= f.text_field :title, class: 'form-control mb-3', placeholder: '任務標題' %>
-  <%= f.select :priority, order_select_options, {}, class: 'form-select mb-3'%>
-  <%= f.select :state, state_select_options, {}, class: 'form-select mb-3' %>
-  <%= f.rich_text_area :content, class: 'mb-3' %>
-  <%= f.datetime_select :start_time %>
-  <%= f.datetime_select :end_time %>
-  <%= f.select :tag_list, options_from_collection_for_select(Tag.all, 'name', 'name', task.tags.map(&:name)),{ include_blank: true }, class: 'form-select', multiple: true, data: {controller: 'single'} %>
-  <%= f.button submit_txt, class: 'btn btn-primary mt-3' %>
-  <%= link_to '回到首頁', root_path, class: 'btn btn-danger mt-3' %>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">New Task</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body">
+    <%= render 'shared/error_messages', f: f %>
+    <div><%= f.text_field :title, class: 'form-control mb-3', placeholder: '任務標題', required: true, data: {redirect_target: 'title'} %></div>
+    <div><%= f.select :priority, order_select_options, {}, class: 'form-select mb-3'%></div>
+    <div><%= f.select :state, state_select_options, {}, class: 'form-select mb-3' %></div>
+    <div><%= f.rich_text_area :content, class: 'mb-3' %></div>
+    <div><%= f.datetime_select :start_time %></div>
+    <div><%= f.datetime_select :end_time %></div>
+    <div class="mt-3"><%= f.select :tag_list, options_from_collection_for_select(Tag.all, 'name', 'name', task.tags.map(&:name)),{ include_blank: true }, class: 'form-select', multiple: true, data: {controller: 'single'} %></div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-redirect-target="close">關閉</button>
+    <%= f.button submit_txt, class: 'btn btn-primary', data: {action: 'click->redirect#close'} %>
+  </div>
+
 <% end %>
 

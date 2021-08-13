@@ -1,16 +1,16 @@
-<%= content_tag :div, id: dom_id(task), class: 'rTableRow' do %>
-  <div class="rTableCell"><%= task.title %></div>
-  <div class="rTableCell"><%= translate_states(task.state) %></div>
-  <div class="rTableCell"><%= translate_order(task.priority) %></div>
-  <div class="rTableCell"><%= task.start_time.strftime("%Y/%m/%d %I:%M %p") %></div>
-  <div class="rTableCell"><%= task.end_time.strftime("%Y/%m/%d %I:%M %p") %></div>
-  <div class="rTableCell">
+<%= content_tag :tr, id: dom_id(task) do %>
+  <td><%= link_to task.title, task_path(task), class: 'text-decoration-none fw-bolder' %></td>
+  <td><%= translate_states(task.state) %></td>
+  <td><%= translate_order(task.priority) %></td>
+  <td><%= task.start_time.strftime("%Y/%m/%d") %></td>
+  <td><%= task.end_time.strftime("%Y/%m/%d") %></td>
+  <td>
     <% task.tags.map(&:name).each do |name| %>
     <span class="badge bg-info"><%= name %></span>
     <% end %>
-  </div>
-  <div class="rTableCell">
+  </td>
+  <td>
     <%= link_to '編輯', edit_task_path(task), class: 'btn btn-primary p-0 px-3' %>
     <%= link_to '刪除', task_path(task), data: { "turbo-method": :delete, confirm: '你確定要刪除這個任務' }, class: 'btn btn-danger p-0 px-3' %>
-  </div>
+  </td>
 <% end %>

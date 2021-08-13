@@ -1,24 +1,42 @@
 <%= turbo_stream_from "tasks" %>
   <div class="col-10 mx-auto mt-5">
-    <%= link_to '新增任務', new_task_path, class: 'btn btn-success mb-5 float-end mt-4' %>
+    <button type="button" id="new_task_btn" class="btn btn-success mb-5 float-end mt-4" data-bs-toggle="modal" data-bs-target="#taskModal">
+      新增任務
+    </button>
       <%= render 'shared/search_form', url: tasks_path %>
-      <div class="rTable">
-        <div class="rTableRow">
-          <div class="rTableHead">任務標題</div>
-          <% if params[:controller] == 'tasks' %>
-          <div class="rTableHead"><%= link_to '任務狀態', params[:sort] == "state desc" ? tasks_path(sort: "state asc") : tasks_path(sort: "state desc") %></div> 
-          <div class="rTableHead"><%= link_to '任務優先權', params[:sort] == "priority desc" ? tasks_path(sort: "priority asc") : tasks_path(sort: "priority desc") %></div>
-          <div class="rTableHead"><%= link_to '開始時間', params[:sort] == "start_time desc" ? tasks_path(sort: "start_time asc") : tasks_path(sort: "start_time desc") %></div>
-          <div class="rTableHead"><%= link_to '結束時間', params[:sort] == "end_time desc" ? tasks_path(sort: "end_time asc") : tasks_path(sort: "end_time desc") %></div>
-          <% else %>
-          <div class="rTableHead"><%= link_to '任務狀態', params[:sort] == "state desc" ? admin_user_path(sort: "state asc") : admin_user_path(sort: "state desc") %></div> 
-          <div class="rTableHead"><%= link_to '任務優先權', params[:sort] == "priority desc" ? admin_user_path(sort: "priority asc") : admin_user_path(sort: "priority desc") %></div>
-          <div class="rTableHead"><%= link_to '開始時間', params[:sort] == "start_time desc" ? admin_user_path(sort: "start_time asc") : admin_user_path(sort: "start_time desc") %></div>
-          <div class="rTableHead"><%= link_to '結束時間', params[:sort] == "end_time desc" ? admin_user_path(sort: "end_time asc") : admin_user_path(sort: "end_time desc") %></div>
-          <% end %>
-          <div class="rTableHead">標籤</div>
-          <div class="rTableHead">其他功能</div>
-        </div>
+      <table class="table mt-3 text-center">
+        <thead>
+          <tr>
+            <th scope="col">任務標題</th>
+            <% if params[:controller] == 'tasks' %>
+            <th scope="col"><%= link_to '任務狀態', params[:sort] == "state desc" ? tasks_path(sort: "state asc") : tasks_path(sort: "state desc") %></th> 
+            <th scope="col"><%= link_to '任務優先權', params[:sort] == "priority desc" ? tasks_path(sort: "priority asc") : tasks_path(sort: "priority desc") %></th>
+            <th scope="col"><%= link_to '開始時間', params[:sort] == "start_time desc" ? tasks_path(sort: "start_time asc") : tasks_path(sort: "start_time desc") %></th>
+            <th scope="col"><%= link_to '結束時間', params[:sort] == "end_time desc" ? tasks_path(sort: "end_time asc") : tasks_path(sort: "end_time desc") %></th>
+            <th scope="col">標籤</th>
+            <% else %>
+            <th scope="col"><%= link_to '任務狀態', params[:sort] == "state desc" ? admin_user_path(sort: "state asc") : admin_user_path(sort: "state desc") %></th> 
+            <th scope="col"><%= link_to '任務優先權', params[:sort] == "priority desc" ? admin_user_path(sort: "priority asc") : admin_user_path(sort: "priority desc") %></th>
+            <th scope="col"><%= link_to '開始時間', params[:sort] == "start_time desc" ? admin_user_path(sort: "start_time asc") : admin_user_path(sort: "start_time desc") %></th>
+            <th scope="col"><%= link_to '結束時間', params[:sort] == "end_time desc" ? admin_user_path(sort: "end_time asc") : admin_user_path(sort: "end_time desc") %></th>
+            <% end %>
+            <th scope="col">其他功能</th>
+          </tr>
+        </thead>
+        <tbody id="task_tbody">
           <%= render @tasks %>
-      </div>
+        </tbody>
+      </table>
+    <%#= paginate @tasks %>
   </div>
+
+
+
+
+<div class="modal fade" id="taskModal" aria-labelledby="taskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <%= render 'form', task: Current.user.tasks.new, submit_txt: '新增' %>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,10 @@ export default class extends Controller {
       placeholder: '請選擇一個標籤',
       allowClear: true,
       tags: true,
-      tokenSeparators: [',', ' '],
+      tokenSeparators: [','],
+      width: '100%',
+      dropdownParent: $('#taskModal')
+      
     })
   }
 }
