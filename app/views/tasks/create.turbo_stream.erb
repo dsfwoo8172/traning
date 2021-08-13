@@ -1,1 +1,6 @@
+<% if @task.errors.any? %>
 <%= turbo_stream.replace "new_task", partial: "tasks/form", locals: { task: @task, submit_txt: '新增' } %>
+<% else %>
+<%= turbo_stream.prepend "task_tbody", partial: "tasks/task", locals: { task: @task } %>
+<%= turbo_stream.append "flash", partial: "shared/flash", locals: {msg_type: :success, message: '成功'} %>
+<% end %>

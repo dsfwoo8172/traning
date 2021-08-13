@@ -29,6 +29,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to root_path, notice: "#{@task.title} 新增成功!" }
+        format.turbo_stream
       else
         format.html { render :new }
         format.turbo_stream
@@ -41,10 +42,12 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
-    if @task.update(task_params)
-      redirect_to tasks_path, notice: "#{@task.title} 更新成功!"
-    else
-      render :edit
+    respond_to do |format|
+      if @task.update(task_params)
+        format.html { redirect_to tasks_path, notice: "#{@task.title} 更新成功!" }
+      else
+        render :edit
+      end
     end
   end
 
@@ -52,12 +55,8 @@ class TasksController < ApplicationController
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_path, notice: "#{@task.title} 刪除成功!" }
-      # 如果要在 controller 寫比較簡單的話記得要去 view 下面開 destroy.turbo_stream.erb
-      # 檔案內容是 <%= turbo_stream.remove(dom_id(@task)) %> 
-      # controller 內容 -> format.turbo_stream
-
       format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@task)) }
-      # 上面是不用在 view 多開一個檔案的作法
+      # 記得 include ActionView::RecordIdentifier
     end
   end
 
