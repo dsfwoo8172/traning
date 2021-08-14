@@ -8,7 +8,7 @@
 
   <div class="modal-body">
     <%= render 'shared/error_messages', f: f %>
-    <div><%= f.text_field :title, class: 'form-control mb-3', placeholder: '任務標題', required: true, data: {redirect_target: 'title'} %></div>
+    <div><%= f.text_field :title, class: 'form-control mb-3', placeholder: '任務標題', data: {redirect_target: 'title'} %></div>
     <div><%= f.select :priority, order_select_options, {}, class: 'form-select mb-3'%></div>
     <div><%= f.select :state, state_select_options, {}, class: 'form-select mb-3' %></div>
     <div><%= f.rich_text_area :content, class: 'mb-3' %></div>
