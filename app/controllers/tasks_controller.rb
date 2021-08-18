@@ -5,19 +5,13 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Current.user.tasks
+    search_task_by_name(params[:task])
 
-    if params[:task]
-      @tasks = @tasks.tagged_with(search_params[:tag]) if search_params[:tag]
-      @tasks = @tasks.with_state(search_params[:state]) if search_params[:state]
-      @tasks = @tasks.with_priority(search_params[:priority]) if search_params[:priority]
-      @tasks = @tasks.with_keyword(search_params[:keyword]) if search_params[:keyword]
-    end
-
-    @tasks = @tasks.order(id: :desc).page(params[:page]).per(5)
-
-    if params[:sort].present?
-      @tasks = @tasks.reorder("#{params[:sort]}")
-    end
+    @tasks = @tasks.
+      order(id: :desc).
+      reorder_by_sort(params[:sort]).
+      page(params[:page]).
+      per(5)
   end
 
   def new
@@ -72,5 +66,15 @@ class TasksController < ApplicationController
 
   def set_task
     @task = Task.find_by(id: params[:id])
+  end
+
+  def search_task_by_name(task)
+    return if task.blank?
+
+    @tasks = @tasks.
+      tagged_with(search_params[:tag]).
+      with_state(search_params[:state]).
+      with_priority(search_params[:priority]).
+      with_keyword(search_params[:keyword])
   end
 end

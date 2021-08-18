@@ -6,7 +6,6 @@ export default class extends Controller {
   close() {
     if(this.titleTarget.value) {
       this.closeTarget.click()
-      this.titleTarget.value = ''
     }
   }
 }

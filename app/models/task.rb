@@ -9,15 +9,18 @@ class Task < ApplicationRecord
   
   validates_presence_of :title, :start_time, :end_time, :priority, :state
   
-  scope :with_state, -> (state){ where(state: state) }
-  scope :with_priority, -> (priority){ where(priority: priority) }
-  scope :with_keyword, -> (keyword){ where('title ILIKE ?', "%#{keyword}%")}
+  scope :with_state, -> (state){ where(state: state) if state }
+  scope :with_priority, -> (priority){ where(priority: priority) if priority }
+  scope :with_keyword, -> (keyword){ where('title ILIKE ?', "%#{keyword}%") if keyword }
+  scope :reorder_by_sort, ->(sort) { reorder(sort) if sort }
   
   enum priority: { low: 0, middle: 1, high: 2 }
   enum state: { pending: 0, proccesing: 1, finished: 2 }
 
   # 可以用 Post.tagge_with(tagname) 來找到文章
   def self.tagged_with(name)
+    return all if name.blank?
+
     Tag.where(name: name).first.tasks
   end
 
