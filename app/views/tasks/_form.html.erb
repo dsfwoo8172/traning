@@ -15,6 +15,7 @@
     <div><%= f.datetime_select :start_time %></div>
     <div><%= f.datetime_select :end_time %></div>
     <div class="mt-3"><%= f.select :tag_list, options_from_collection_for_select(Tag.all, 'name', 'name', task.tags.map(&:name)),{ include_blank: true }, class: 'form-select', multiple: true, data: {controller: 'single'} %></div>
+    <div><%= f.text_field :happy %></div>
   </div>
 
   <div class="modal-footer">
